@@ -3,10 +3,10 @@
 }
 
 a.btn.btn-danger.btn-fab.btn-raised.mdi-content-add {
-  position: absolute;
+  position: relative;
   float: right;
-  left: 538px;
-  top: 20px;
+  
+  top: -40px;
 }
 .search{
 	font-family: Arial, FontAwesome;
