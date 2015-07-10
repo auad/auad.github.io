@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" ng-app="checklistApp">
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -11,46 +11,92 @@
 	<meta name="author" content="Alysson Auad">
 
 	<link href="css/bootstrap.min.css" rel="stylesheet">
+	<link href="css/roboto.min.css" rel="stylesheet">
+	<link href="css/material.min.css" rel="stylesheet">
+	<link href="css/ripples.min.css" rel="stylesheet">	
 	<link href="css/style.css" rel="stylesheet">
+	<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
 
 </head>
-<body>
+<body ng-controller="checklistController">
+<div class="container-fluid">
+	<div class="row">
+		<div class="col-lg-6">
+			<div class="well well-material-yellow">
+				<form class="form-horizontal">
+					<fieldset>
 
-	<div class="container-fluid">
-		<div class="row">
-			<div class="col-md-12">
-				<ul>
-					<li>
-						Lorem ipsum dolor sit amet
-					</li>
-					<li>
-						Consectetur adipiscing elit
-					</li>
-					<li>
-						Integer molestie lorem at massa
-					</li>
-					<li>
-						Facilisis in pretium nisl aliquet
-					</li>
-					<li>
-						Nulla volutpat aliquam velit
-					</li>
-					<li>
-						Faucibus porta lacus fringilla vel
-					</li>
-					<li>
-						Aenean sit amet erat nunc
-					</li>
-					<li>
-						Eget porttitor lorem
-					</li>
-				</ul>
+						<a href="javascript:$('.modal').modal('show');" class="btn btn-danger btn-fab btn-raised mdi-content-add"></a>
+						<legend>Checklist</legend>
+						<div class="row clearfix">
+							<div class="col-lg-5"><input class="search form-control" ng-model="searchFor" placeholder=" &#xF002; Search" size="30"/></div>
+						</div>	
+						<div class="list-group-item" ng-repeat="checklistItems in checklistItems | filter:searchFor | orderBy:'date' " >
+					        <div class="row-action-primary checkbox">
+					            <label><input type="checkbox"></label>
+					        </div>
+					        <div class="row-content">
+					            <h4 class="list-group-item-heading"> {{ checklistItems.title }}</h4> <span class="date">{{ checklistItems.date }}</span>
+					            <p class="list-group-item-text"> {{ checklistItems.description }}</p>
+					        </div>
+					    </div>
+					    <div class="list-group-separator"></div>
+					</fieldset>
+				</form>
 			</div>
 		</div>
 	</div>
+	<div class="modal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                <h4 class="modal-title">Add item to checklist</h4>
+            </div>
+            <div class="modal-body">
+            	<div class="form-group clearfix">
+		            <label for="title" class="col-lg-2 control-label">Title</label>
+		            <div class="col-lg-7">
+		                <input id="title" class="form-control" placeholder="title" ng-model="adding_checklist.title">
+		            </div>
+		        </div>   
 
-	<script src="js/jquery.min.js"></script>
-	<script src="js/bootstrap.min.js"></script>
-	<script src="js/scripts.js"></script>
+            	<div class="form-group clearfix">
+		            <label for="date" class="col-lg-2 control-label">Date</label>
+		            <div class="col-lg-7">
+		                <input id="date" class="form-control" placeholder="yyyy-mm-dd" ng-model="adding_checklist.date">
+		            </div>
+		        </div>  
+
+				<div class="form-group clearfix">
+		            <label for="textArea" class="col-lg-2 control-label">Description</label>
+		            <div class="col-lg-7">
+		                <textarea class="form-control" id="textArea" placeholder="Description" rows="4" ng-model="adding_checklist.description"></textarea>
+		            </div>
+		        </div>
+					
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" ng-click="addChecklist(adding_checklist);">Add Item</button>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+<script src="js/jquery.min.js"></script>
+<script src="js/bootstrap.min.js"></script>
+<script src="https://code.angularjs.org/1.2.4/angular.min.js"></script>
+<script src="js/ripples.min.js"></script>
+<script src="js/material.min.js"></script>
+<script>
+	$(document).ready(function() {
+                // This command is used to initialize some elements and make them work properly
+                $.material.init();
+            });
+</script>
+
+<script src="js/scripts.js"></script>
 </body>
+
 </html>
